@@ -1,0 +1,52 @@
+Dado un objeto con el formato: {"uuid": "...", "name": "...", "jurisdiction": "...", "objective": "..."}, a partir del campo 'objective' extraé las sentencias que representen alguna de las dos categorías siguientes:
+
+* Objetivos, atribuciones, responsabilidades:
+  * Son las finalidades o funciones sustantivas declaradas de la unidad. Ejemplos: “reducir la violencia de género”, “coordinar la política social”, “regular el sistema universitario”.
+
+* Actividades desarrolladas
+  * Son las acciones, intervenciones o herramientas mediante las cuales las unidades cumplen sus objetivos. Ejemplos: “otorga microcréditos”, “dicta cursos de capacitación”, “promueve proyectos comunitarios”. Es importante que incluyas correctamente el verbo ya que una actividad posible puede ser "planifica políticas" y una segunda "implementa políticas", ambas actividades deben poder diferenciarse.
+
+# Reglas:
+
+1. Normalizar los textos en minúsculas.
+2. Llevar los verbos a infinitivo.
+3. Normalizar frases equivalentes a una misma forma estándar. 
+4. Cada sentencia debe tener:
+    - "tag" debe ser la ocurrencia encontrada normalizada.
+    - "desde" es el índice de la primer palabra en el texto, donde empieza la ocurrencia.
+    - "hasta" es el índice de la última palabra en el texto, donde finaliza la ocurrencia.
+5. Tener en cuenta la juridicción: interpretar las ocurrencias considerando el área del cual depende la unidad, para precisar el tema sustantivo sobre el que trabaja.
+
+# Ejemplo completo de ocurrencias encontradas:
+
+## Entrada
+{
+    "uuid": "123-123-123-123",
+    "unidad": "Dirección Nacional de Financiamiento con Organismos Internacionales de Crédito",
+    "jurisdiccion": "Ministerio de Economía",
+    "texto": "Responsabilidad primaria Asistir a la subsecretaria en la programación, gestión y negociación con los organismos financieros internacionales de crédito de los préstamos, cooperaciones técnicas y donaciones que estos realicen, así como en la supervisión de la administración de los programas y proyectos en ejecución, su seguimiento, control y evaluación."
+}
+
+## Salida y Formato de salida obligatorio (solo JSON, sin explicaciones, sin texto adicional):
+
+{
+    "uuid": "123-123-123-123",
+    "unidad": "Dirección Nacional de Financiamiento con Organismos Internacionales de Crédito",
+    "jurisdiccion": "Ministerio de Economía",
+    "ocurrencias": [
+        {
+            "id": 0,
+            "tag": "Asistir a la subsecretaria en la programación, gestión y negociación conlos organismos financieros internacionales de crédito de los préstamos,cooperaciones técnicas y donaciones que estos realicen",
+            "desde": 2,
+            "hasta": 29,
+        },
+        {
+            "id": 1,
+            "tag": "Supervisión de la administración de los programas y proyectos enejecución, su seguimiento, control y evaluación",
+            "desde": 34,
+            "hasta": 50,
+        }
+    ],
+}
+
+# Objeto de entrada:

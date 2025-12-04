@@ -1,0 +1,72 @@
+Dado un objeto con el formato: {"uuid": "...", "name": "...", "jurisdiction": "...", "objective": "..."}, a partir del campo 'objective' extrae las sentencias que representen:
+
+* Destinatarios de intervención:
+  * Son grupos poblacionales o institucionales hacia los cuales se orientan sus acciones.  Ejemplos: “mujeres vulnerables”, “pequeñas y medianas empresas”, “jóvenes en riesgo”, "personas con discapacidad", etc. 
+
+# Reglas:
+
+1. Normalizar los textos en minúsculas.
+2. Llevar los verbos a infinitivo.
+3. Normalizar frases equivalentes a una misma forma estándar. 
+4. Cada sentencia debe tener:
+    - "tag" debe ser la ocurrencia encontrada normalizada.
+    - "desde" es el índice de la primer palabra en el texto, donde empieza la ocurrencia.
+    - "hasta" es el índice de la última palabra en el texto, donde finaliza la ocurrencia.
+5. No duplicar ocurrencias iguales encontradas para una misma unidad.
+6. Tener en cuenta la juridicción: interpretar los destinatarios considerando el área del cual depende la unidad, para precisar el tema sustantivo sobre el que trabaja.
+7. Interpretar actores implícitos en el texto que pudieran ser destinatarios y explicitarlos en las ocurrencias encontradas. Por ejemplo:
+    -  "mundo del trabajo" -> "trabajadores", "empleados"
+    -  "ámbitos educativos" -> "deportistas"
+    -  "sistema de salud" -> "médicos", "trabajadores de la salud"
+    -  "igualdad y perspectiva de género" -> "mujeres", "disidencias", "diversidades"
+8. Considerar únicamente a personas específicas o grupos de personas humanas específicos como destinatarios.
+9. Desestimar menciones genéricas tales como "personas", "ciudadanos", "funcionarios públicos", "empleados públicos" como destinatarios.
+10. Desestimar ámbitos geográficos como provincias, municipios regiones o países.  
+11. Desestimar a sectores económicos o definiciones generales como "sector público" o "sector privado" como los destinatarios. 
+12. Desestimar a áreas o sectores de la administración pública local, provincial o municipal como destinatarios. 
+13. Desestimar a organismos nacionales o internacionales como destinatarios. 
+
+# Ejemplo completo de ocurrencias encontradas:
+
+## Entrada
+{
+    "uuid": "123-123-123-123",
+    "unidad": "Dirección Nacional de Turismo y Naturaleza",
+    "jurisdiccion": "Ministerio de Turismo",
+    "texto": "Responsabilidad primaria
+Diseñar planes para el desarrollo del turismo de naturaleza a través de la apropiación de la comunidad local y la revalorización del patrimonio cultural
+Acciones
+1. Asistir a la subsecretaria en la articulación de acciones y políticas con la administración de parques nacionales
+2. Promover en el ámbito de su competencia la apropiación de la comunidad local y la revalorización del patrimonio natural y cultural
+3. Analizar y proponer acciones para potenciar el ecoturismo y turismo de naturaleza en la República Argentina
+4. Impulsar el desarrollo territorial para comunidades pequeñas mediante experiencias de calidad y productos de naturaleza sustentables y competitivos para el mercado turístico
+5. Fomentar el turismo basado en la naturaleza incentivando las prácticas ecoturísticas y los atractivos naturales
+6. Desarrollar en el ámbito de su competencia políticas para reducir los impactos negativos sobre el entorno natural y sociocultural
+7. Desarrollar lazos con las comunidades locales que permitan la generación de puestos de trabajo promoviendo la autenticidad cultural y la conservación responsable del entorno natural"
+}
+
+## Salida y Formato de salida obligatorio (solo JSON, sin explicaciones, sin texto adicional):
+
+{
+    "uuid": "123-123-123-123",
+    "unidad": "Dirección Nacional de de Turismo y Naturaleza",
+    "jurisdiccion": "Ministerio de Turismo",
+    "ocurrencias": [
+        {
+            "id": 0,
+            "tag": "Comunidades locales",
+            "desde": 148,
+            "hasta": 150,
+        }
+    ],
+}
+
+# Formato de salida obligatorio (solo JSON, sin explicaciones, sin texto adicional):
+{
+    "uuid": "...",
+    "unidad": "...",
+    "jurisdiccion": "...",
+    "ocurrencias": [{"id": 0, "tag": "...", "desde": 0, "hasta": 0}],
+}
+
+# Lista de entrada:

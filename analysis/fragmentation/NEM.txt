@@ -1,0 +1,19 @@
+# NEM 2023
+
+{'defensa nacional': 1.4117647058823528,
+ 'trabajo y empleo': 7.272727272727275,
+ 'género y diversidad sexual': 6.230769230769231,
+ 'hábitat y vivienda': 3.3898305084745757,
+ 'política social': 3.000000000000001,
+ 'seguridad interior': 5.0,
+ 'medio ambiente': 7.313043478260866}
+
+# NEM 2025
+
+{'defensa nacional': 1.8059701492537317,
+ 'trabajo y empleo': 4.7804878048780495,
+ 'género y diversidad sexual': 4.2631578947368425,
+ 'hábitat y vivienda': 1.923076923076923,
+ 'política social': 2.380952380952381,
+ 'seguridad interior': 5.333333333333333,
+ 'medio ambiente': 1.991150442477876}
